@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head><script>if (new URLSearchParams(location.search).has("embedded")) document.documentElement.classList.add("embedded");</script>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local AI Dashboard</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#overview"><span class="brand-icon">L<span>·</span></span><span>LOCAL AI<small>YOUR INFERENCE WORKSPACE</small></span></a>
+    <div class="nav-label">WORKSPACE</div>
+    <nav aria-label="Main navigation">
+      <a class="nav-link active" href="#overview"><span>▦</span> Overview</a>
+      <a class="nav-link" href="#models"><span>◈</span> Model library</a>
+      <a class="nav-link" href="#benchmark"><span>↗</span> Benchmark lab</a>
+      <a class="nav-link" href="#history"><span>◷</span> Run history</a>
+    </nav>
+    <div class="sidebar-note"><span class="tiny-dot"></span> LOCAL BY DESIGN<p>Hardware metrics and inference,<br>on your machine.</p><code>127.0.0.1:11434</code></div>
+    <div class="sidebar-footer">BUILT WITH GO + WAILS V3</div>
+  </aside>
+  <main>
+    <header><div class="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div><div class="header-right"><span id="connection" class="pill neutral">Connecting</span><span class="avatar">LA</span></div></header>
+    <div class="content">
+      <section id="overview">
+        <div class="section-heading"><div><div class="eyebrow">YOUR HARDWARE. YOUR MODELS.</div><h1>Local intelligence, at a glance.</h1><p class="subtitle">Keep a pulse on your GPUs and find the right model for the job.</p></div><button id="refresh" class="button secondary">↻ &nbsp; Refresh</button></div>
+        <div class="stats-grid">
+          <article class="stat"><span class="stat-label">CONNECTED GPUS <span>▦</span></span><div id="gpu-count" class="stat-value">—</div><small>Detected by NVIDIA</small></article>
+          <article class="stat"><span class="stat-label">GPU MEMORY <span>▤</span></span><div class="stat-value" id="memory">—</div><small id="memory-detail">Waiting for telemetry</small></article>
+          <article class="stat"><span class="stat-label">INSTALLED MODELS <span>◈</span></span><div id="model-count" class="stat-value">—</div><small id="running-count">Waiting for Ollama</small></article>
+          <article class="stat accent"><span class="stat-label">LATEST BENCHMARK <span>↗</span></span><div class="stat-value" id="latest-speed">—</div><small id="latest-model">Run your first benchmark below</small></article>
+        </div>
+        <div class="row-title"><h2>Hardware overview <span id="gpu-badge" class="count">0</span></h2><span class="muted live-label"><span class="tiny-dot"></span><span id="updated">Auto-refresh every 5s</span></span></div>
+        <div id="gpu-error" class="notice" hidden></div>
+        <div id="gpu-cards" class="gpu-grid"><div class="empty">Reading your hardware…</div></div>
+      </section>
+      <section id="models">
+        <div class="row-title"><h2>Model library</h2><span class="muted">Local providers · Ollama / FastFlowLM</span></div>
+        <div id="ollama-error" class="notice" hidden></div>
+        <div class="panel table-wrap"><table><thead><tr><th>MODEL</th><th>PARAMETERS</th><th>QUANTIZATION</th><th>DISK SIZE</th><th>STATUS</th></tr></thead><tbody id="model-rows"><tr><td colspan="5" class="empty">Checking Ollama…</td></tr></tbody></table></div>
+      </section>
+      <section id="benchmark">
+        <div class="row-title"><h2>Benchmark lab</h2><span class="tag">GENERATION SPEED</span></div>
+        <div class="benchmark-grid">
+          <form id="benchmark-form" class="panel bench-form">
+            <h3>Put your model to work.</h3><p class="muted">Use the same prompt to compare local models.</p>
+            <label for="model-select">Model</label><select id="model-select" required><option value="">No local models available</option></select>
+            <label for="prompt">Test prompt</label><textarea id="prompt" rows="4" maxlength="16000" required>Write a Go function that checks whether a string is a palindrome. Include a short explanation and two test cases.</textarea>
+            <div class="form-footer"><small>Up to 256 output tokens · temperature 0</small><button class="button primary" id="run" type="submit" disabled>Run benchmark &nbsp; ↗</button></div>
+            <div id="benchmark-error" class="notice" role="alert" hidden></div>
+          </form>
+          <div class="panel result-panel" aria-live="polite"><div class="eyebrow">LAST RESULT</div><div class="result-speed" id="result-speed">— <span>tok/s</span></div><p id="result-caption" class="muted">Your next baseline starts here.</p><div class="result-details"><div><span>Output tokens</span><strong id="result-tokens">—</strong></div><div><span>Total duration</span><strong id="result-duration">—</strong></div><div><span>Model load</span><strong id="result-load">—</strong></div></div><details id="response-details" hidden><summary>View model response</summary><pre id="response"></pre></details><small class="result-note">Ollama reports generation timing. FastFlowLM rates (~) are estimates from streamed token counts; model load timing may be unavailable. This is a speed test, not a coding quality score.</small></div>
+        </div>
+      </section>
+      <section id="history"><div class="row-title"><h2>Recent runs</h2><span class="muted">Last 100 runs saved on this computer</span></div><div id="history-error" class="notice" hidden></div><div class="panel table-wrap"><table><thead><tr><th>MODEL</th><th>WHEN</th><th>OUTPUT</th><th>TOTAL TIME</th><th>SPEED</th></tr></thead><tbody id="history-rows"><tr><td colspan="5" class="empty">No runs yet. Set your first baseline in the benchmark lab.</td></tr></tbody></table></div></section>
+      <footer><span><span class="tiny-dot"></span> Local AI Dashboard</span><span>Go backend · Native desktop shell · No telemetry</span></footer>
+    </div>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+/bin/
+/.tools/
+*.syso
+!rsrc_windows_amd64.syso
+/frontend/node_modules/
