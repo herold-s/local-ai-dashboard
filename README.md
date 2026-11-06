@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Local AI Dashboard
 
 A local-first Windows desktop workspace built with **Go + Wails v3.0.0**, a **React + assistant-ui** chat interface, and a **Cobra** CLI. React is bundled by Vite and embedded into the Windows executable. End users do not need Node to run the compiled application.
@@ -193,3 +194,7 @@ FastFlowLM streaming, reasoning text, cancellation, comparisons and benchmarks u
 Hardware monitoring remains NVIDIA-only. No AMD NPU utilization, temperature or memory is fabricated; inference can work on a supported laptop even when NVIDIA telemetry is unavailable.
 
 Reference: https://fastflowlm.com/docs/instructions/server/openapi/
+=======
+# local-ai-dashboard
+local-ai-dashboard
+>>>>>>> b20191b15c56bad9ec4636f4713d16eb3abee027
